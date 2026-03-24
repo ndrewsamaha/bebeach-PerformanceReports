@@ -1,1 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Be Beach – Ads Performance</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#f5f5f5;--card:#fff;--border:#dde1e7;--gold:#b8924a;--gold-light:#d4aa6a;--text:#1a1a2e;--muted:#6b7280;--teal:#2d7d8e;--accent:#1e3a5f;}
+  body{background:var(--bg);color:var(--text);font-family:Calibri,sans-serif;min-height:100vh;font-size:15px}
+  header{background:#fff;border-bottom:2px solid var(--gold);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .logo{font-size:1.4rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+  .logo span{color:var(--accent);font-weight:400}
+  .report-title{font-size:.82rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+  .btn-sm{background:transparent;color:var(--gold);border:1.5px solid var(--gold);padding:6px 14px;border-radius:6px;font-weight:600;cursor:pointer;font-size:.78rem;text-transform:uppercase;transition:.2s;font-family:Calibri,sans-serif}
+  .btn-sm:hover{background:var(--gold);color:#fff}
+  .main{padding:28px 32px}
+  .filters{display:flex;gap:16px;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap}
+  .filter-group{display:flex;flex-direction:column;gap:4px}
+  .filter-group label{font-size:.72rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .filter-group select{background:#fff;border:1.5px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:.88rem;outline:none;font-family:Calibri,sans-serif;min-width:160px}
+  .filter-group select:focus{border-color:var(--gold)}
+  .section-title{font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:24px}
+  .kpi-card{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:18px 16px;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .kpi-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--gold)}
+  .kpi-card.accent::before{background:var(--teal)}
+  .kpi-label{font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .kpi-value{font-size:1.6rem;font-weight:700;color:var(--accent)}
+  .kpi-sub{font-size:.72rem;color:var(--muted);margin-top:4px}
+  .week-note{background:#fff8ee;border:1.5px solid var(--gold-light);border-left:4px solid var(--gold);border-radius:8px;padding:10px 16px;margin-bottom:20px;font-size:.85rem;color:var(--muted)}
+  .week-note span{color:var(--accent);font-weight:700}
+  .platform-label{margin-bottom:8px}
+  .tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid var(--border)}
+  .tab{padding:10px 24px;cursor:pointer;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.2s;font-family:Calibri,sans-serif}
+  .tab:hover{color:var(--accent)}
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:700}
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1.5px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;font-family:Calibri,sans-serif}
+  thead{background:#f8f9fb}
+  th{padding:11px 14px;text-align:left;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;white-space:nowrap;border-bottom:1.5px solid var(--border)}
+  td{padding:10px 14px;border-top:1px solid #eef0f4;color:var(--text);white-space:nowrap}
+  tr:hover td{background:#fafbfc}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .badge.sales{background:#e8f4f8;color:#2d7d8e}
+  .badge.whatsapp{background:#e8f8ee;color:#1a8a4a}
+  .badge.signup{background:#fef6e8;color:#b8924a}
+  .badge.pmax{background:#fdecea;color:#c0392b}
+  .badge.sem{background:#eaf0fb;color:#2c5fad}
+  .num{text-align:right}
+  .highlight{color:var(--gold);font-weight:700}
+  .total-row td{background:#f8f6f0;font-weight:700;color:var(--accent);border-top:2px solid var(--border)}
+  .obj-section{margin-bottom:28px}
+  .obj-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .panel{display:none}.panel.active{display:block}
+  .empty{text-align:center;padding:40px;color:var(--muted);font-size:.88rem}
+  .fetch-status{font-size:.75rem;color:var(--teal);margin-left:8px}
+  @media(max-width:700px){.main{padding:16px}.kpi-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="logo">BE <span>BEACH</span></div>
+    <div class="report-title">Digital Ads Performance Report</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span style="font-size:.82rem;color:var(--muted)" id="reportPeriod"></span>
+    <span class="fetch-status" id="fetchStatus"></span>
+    <button class="btn-sm" id="refreshBtn">&#8635; Refresh</button>
+  </div>
+</header>
 
+<div class="main">
+  <div class="filters">
+    <div class="filter-group">
+      <label>Month</label>
+      <select id="monthFilter">
+        <option value="all">All Months</option>
+        <option value="Jan_26">January 2026</option>
+        <option value="Feb_26">February 2026</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Platform</label>
+      <select id="platformFilter">
+        <option value="all">All Platforms</option>
+        <option value="META">META</option>
+        <option value="Google">Google</option>
+      </select>
+    </div>
+    <div class="filter-group" id="weekFilterGroup" style="display:none">
+      <label>Week</label>
+      <select id="weekFilter">
+        <option value="all">All Weeks</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-title">Performance Summary</div>
+  <div id="weekNote" style="display:none" class="week-note"></div>
+  <div id="kpiGrid"></div>
+
+  <div id="breakdownSection">
+    <div class="tabs" id="platformTabs">
+      <div class="tab active" onclick="switchTab('meta',this)">META</div>
+      <div class="tab" onclick="switchTab('google',this)">Google</div>
+    </div>
+    <div id="metaPanel" class="panel active"></div>
+    <div id="googlePanel" class="panel"></div>
+  </div>
+</div>
+
+<script>
+var SHEET_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://script.google.com/macros/s/AKfycbxy9zknBFkIAKPEdKV5_hunUOiDPj8EBt9LwAmU8I4Wpkd2ODBxcDNBWQuzM4XacTjF/exec');
+
+var CAMPAIGNS = [
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Tiesto - 22 Jan 2026',impressions:315011,reach:109591,messages:53,clicks:6048,cpc:0.28,spend:1700,purchases:102,revenue:20220,roas:11.89},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Agoria - 24 Jan 2026',impressions:108163,reach:35668,messages:18,clicks:853,cpc:0.82,spend:700,purchases:11,revenue:1747,roas:2.50},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Salome - 23 Jan 2026',impressions:115763,reach:40949,messages:13,clicks:802,cpc:0.87,spend:700,purchases:16,revenue:3458,roas:4.94},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Pawsa - 06 Feb 2026',impressions:128932,reach:31684,messages:11,clicks:1853,cpc:0.34,spend:636,purchases:30,revenue:3930,roas:6.17},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Arodes - 16 Jan 2026',impressions:96144,reach:31469,messages:5,clicks:1076,cpc:0.56,spend:600,purchases:22,revenue:3739,roas:6.23},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Addasiya - 18 Jan 2026',impressions:93726,reach:30386,messages:15,clicks:727,cpc:0.82,spend:597,purchases:35,revenue:5887,roas:9.86},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Ankhoi - 31 Jan 2026',impressions:57597,reach:16874,messages:2,clicks:550,cpc:0.55,spend:300,purchases:12,revenue:1032,roas:3.44},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Arodes - 30 Jan 2026',impressions:43149,reach:14468,messages:12,clicks:389,cpc:0.77,spend:300,purchases:4,revenue:209,roas:0.70},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'MESTIZA - 14 Feb 2026',impressions:48973,reach:23963,messages:9,clicks:602,cpc:0.50,spend:300,purchases:18,revenue:1449,roas:4.83},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Mont Rouge - 03 Jan 2026',impressions:66328,reach:22325,messages:29,clicks:1023,cpc:0.24,spend:242,purchases:12,revenue:2422,roas:9.99},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Wed - Ladies - Jan 2026',impressions:72946,reach:28443,messages:186,clicks:946,cpc:1.06,spend:1000,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sun - Saiana - Jan 2026',impressions:80759,reach:20171,messages:146,clicks:901,cpc:1.11,spend:1000,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Arodes - 16 Jan 2026',impressions:23519,reach:11788,messages:46,clicks:209,cpc:3.82,spend:799,purchases:5,revenue:636,roas:0.80},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Rolbac - 10 Jan 2026',impressions:62546,reach:22242,messages:64,clicks:534,cpc:1.12,spend:600,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Lehar - 09 Jan 2026',impressions:63955,reach:32573,messages:25,clicks:360,cpc:1.67,spend:600,purchases:1,revenue:104,roas:0.17},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - George - 17 Jan 2026',impressions:54905,reach:22383,messages:32,clicks:333,cpc:1.80,spend:600,purchases:2,revenue:335,roas:0.56},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - BOM - 02 Jan 2026',impressions:69413,reach:37185,messages:49,clicks:430,cpc:1.39,spend:596,purchases:2,revenue:55,roas:0.09},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Thu - Tiesto - 22 Jan 2026',impressions:29726,reach:18484,messages:104,clicks:390,cpc:1.03,spend:400,purchases:1,revenue:151,roas:0.38},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Ankhoi - 31 Jan 2026',impressions:11645,reach:5715,messages:57,clicks:238,cpc:1.68,spend:400,purchases:4,revenue:212,roas:0.53},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Agoria - 24 Jan 2026',impressions:13621,reach:9072,messages:18,clicks:114,cpc:2.63,spend:300,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Salome - 23 Jan 2026',impressions:9390,reach:4810,messages:11,clicks:55,cpc:5.45,spend:300,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Line Up - Jan 2025',impressions:51600,reach:15097,messages:12,clicks:701,cpc:0.39,spend:274,purchases:2,revenue:1313,roas:4.79},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Mont rouge - 03 Jan 2026',impressions:18942,reach:8697,messages:21,clicks:173,cpc:0.90,spend:156,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Brunch - 01 Jan 2026',impressions:11737,reach:8788,messages:25,clicks:100,cpc:1.06,spend:106,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'META',objective:'SIGNUP',campaign:'Pawsa - 06 Feb 2026',impressions:110985,reach:61369,messages:20,clicks:2718,cpc:0.18,spend:500,purchases:0,revenue:0,roas:0,leads:319},
+  {month:'Jan_26',platform:'Google',objective:'SEM',campaign:'Search',impressions:21800,reach:0,messages:0,clicks:21800,cpc:0.40,spend:800,purchases:0,revenue:0,roas:0},
+  {month:'Jan_26',platform:'Google',objective:'P_Max',campaign:'Performance Max',impressions:207000,reach:0,messages:0,clicks:8940,cpc:0.09,spend:813,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Pawsa - 06 Feb 2026',impressions:71666,reach:19632,messages:17,clicks:1080,cpc:0.53,spend:363.27,purchases:28,revenue:4548.88,roas:12.52},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Miguelle & Tons - 07 Feb 2026',impressions:82313,reach:19637,messages:20,clicks:735,cpc:0.68,spend:499.98,purchases:23,revenue:5431.56,roas:10.86},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'MESTIZA - 14 Feb 2026',impressions:81054,reach:18611,messages:32,clicks:1077,cpc:0.37,spend:400.11,purchases:21,revenue:2563.55,roas:6.41},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Desire - 27 Mar 2026',impressions:23158,reach:7455,messages:4,clicks:180,cpc:0.49,spend:87.69,purchases:3,revenue:354.89,roas:4.05},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Camelphat - 20 Mar 2026',impressions:29623,reach:12220,messages:4,clicks:516,cpc:0.21,spend:110.77,purchases:2,revenue:269.99,roas:2.44},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Wed - Ladies - Feb 2026',impressions:112489,reach:31026,messages:279,clicks:1244,cpc:1.21,spend:1500,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sun - Saiana - Feb 2026',impressions:92680,reach:20520,messages:237,clicks:1172,cpc:1.28,spend:1500,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Calussa - 13 Feb 2026',impressions:22350,reach:9292,messages:22,clicks:185,cpc:2.16,spend:399,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Pawsa - 06 Feb 2026',impressions:14674,reach:6914,messages:81,clicks:269,cpc:1.49,spend:400,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - 21 Feb 2026',impressions:21919,reach:10336,messages:33,clicks:317,cpc:0.95,spend:300,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Franc Fala - 28 Feb 2026',impressions:24953,reach:12349,messages:84,clicks:477,cpc:1.05,spend:500,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Mestiza - 14 Feb 2026',impressions:20671,reach:10948,messages:124,clicks:458,cpc:0.87,spend:400,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Miguelle & Tons - 07 Feb 2026',impressions:8294,reach:4456,messages:49,clicks:196,cpc:2.04,spend:400,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Valentine - Feb 2026',impressions:2929,reach:1041,messages:19,clicks:0,cpc:1.57,spend:30,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'META',objective:'SIGNUP',campaign:'Steve Aoki - 02 April 2026',impressions:35738,reach:29333,messages:5,clicks:939,cpc:0.11,spend:105,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'Google',objective:'P_Max',campaign:'Performance Max',impressions:21100,reach:0,messages:0,clicks:3890,cpc:0.21,spend:805,purchases:0,revenue:0,roas:0},
+  {month:'Feb_26',platform:'Google',objective:'SEM',campaign:'Search',impressions:10600,reach:0,messages:0,clicks:1620,cpc:0.49,spend:800,purchases:0,revenue:0,roas:0}
+];
+
+var allCampaigns = CAMPAIGNS.slice();
+
+var JAN_WEEKS = [
+  {month:'Jan_26',label:'Jan 1 – Jan 4',  starts:new Date('2026-01-01'),ends:new Date('2026-01-04'),impressions:188734,reach:56997, messages:180,spend:1355.73,purchases:14,revenue:2476.42, roas:1.83},
+  {month:'Jan_26',label:'Jan 5 – Jan 11', starts:new Date('2026-01-05'),ends:new Date('2026-01-11'),impressions:330794,reach:111937,messages:207,spend:2445.55,purchases:18,revenue:2635.09, roas:1.08},
+  {month:'Jan_26',label:'Jan 12 – Jan 18',starts:new Date('2026-01-12'),ends:new Date('2026-01-18'),impressions:540709,reach:144267,messages:201,spend:3923.79,purchases:146,revenue:24175.43,roas:6.16},
+  {month:'Jan_26',label:'Jan 19 – Jan 25',starts:new Date('2026-01-19'),ends:new Date('2026-01-25'),impressions:465315,reach:117306,messages:262,spend:3750.06,purchases:60, revenue:14449.68,roas:3.85},
+  {month:'Jan_26',label:'Jan 26 – Jan 31',starts:new Date('2026-01-26'),ends:new Date('2026-01-31'),impressions:233923,reach:49901, messages:139,spend:2231.17,purchases:41, revenue:3162.80, roas:1.42}
+];
+
+var FEB_WEEKS = [
+  {month:'Feb_26',label:'Feb 1 – Feb 8',  starts:new Date('2026-02-01'),ends:new Date('2026-02-08'),impressions:253540,reach:49546, messages:327,spend:2515.58,purchases:52,revenue:10117.36,roas:4.02},
+  {month:'Feb_26',label:'Feb 9 – Feb 15', starts:new Date('2026-02-09'),ends:new Date('2026-02-15'),impressions:129362,reach:38289, messages:309,spend:1544.72,purchases:22,revenue:2509.61, roas:1.62},
+  {month:'Feb_26',label:'Feb 16 – Feb 22',starts:new Date('2026-02-16'),ends:new Date('2026-02-22'),impressions:92063, reach:25902, messages:154,spend:1340.58,purchases:3, revenue:278.35,  roas:0.21},
+  {month:'Feb_26',label:'Feb 23 – Feb 28',starts:new Date('2026-02-23'),ends:new Date('2026-02-28'),impressions:169546,reach:64944, messages:205,spend:1594.27,purchases:6, revenue:707.03,  roas:0.44}
+];
+
+var weeklyData = {};
+
+function saveWeeklyData(){
+  try{ window.storage.set('weeklyData', JSON.stringify(weeklyData)); }catch(e){}
+}
+
+function loadWeeklyData(cb){
+  try{
+    window.storage.get('weeklyData').then(function(r){
+      if(r && r.value){
+        var parsed = JSON.parse(r.value);
+        Object.keys(parsed).forEach(function(m){
+          parsed[m] = parsed[m].map(function(w){
+            return {month:w.month,label:w.label,starts:w.starts?new Date(w.starts):null,ends:w.ends?new Date(w.ends):null,
+              impressions:w.impressions||0,reach:w.reach||0,messages:w.messages||0,spend:w.spend||0,
+              purchases:w.purchases||0,revenue:w.revenue||0,roas:w.roas||0};
+          });
+        });
+        weeklyData = parsed;
+      }
+      cb();
+    }).catch(function(){ cb(); });
+  }catch(e){ cb(); }
+}
+
+function mergePreloadedWeeks(){
+  var all = JAN_WEEKS.concat(FEB_WEEKS);
+  for(var i=0;i<all.length;i++){
+    var w = all[i];
+    if(!weeklyData[w.month]) weeklyData[w.month] = [];
+    var found = false;
+    for(var j=0;j<weeklyData[w.month].length;j++){
+      if(weeklyData[w.month][j].label === w.label){ found=true; break; }
+    }
+    if(!found) weeklyData[w.month].push(w);
+  }
+  Object.keys(weeklyData).forEach(function(m){
+    weeklyData[m].sort(function(a,b){ return new Date(a.starts)-new Date(b.starts); });
+  });
+}
+
+function parseCSVCamp(text){
+  var delim = text.indexOf('\t') > -1 ? '\t' : ',';
+  var lines = text.trim().split('\n');
+  var headers = lines[0].split(delim).map(function(h){ return h.trim(); });
+  var rows = [];
+  for(var i=1;i<lines.length;i++){
+    var vals = lines[i].split(delim);
+    var obj = {};
+    for(var j=0;j<headers.length;j++) obj[headers[j]] = (vals[j]||'').trim();
+    rows.push(obj);
+  }
+  return rows;
+}
+
+function gv(r){
+  var keys = Array.prototype.slice.call(arguments, 1);
+  for(var k=0;k<keys.length;k++){
+    var key = keys[k];
+    if(r[key] !== undefined && r[key] !== '') return r[key];
+    for(var rk in r){
+      if(rk.toLowerCase() === key.toLowerCase() && r[rk] !== '') return r[rk];
+    }
+  }
+  return '';
+}
+
+function mapRow(r){
+  return {
+    month:     r['MONTH']      || r['Month']      || r['month']      || '',
+    platform:  r['PLATFORM']   || r['Platform']   || r['platform']   || '',
+    objective: r['Objective']  || r['OBJECTIVE']  || r['objective']  || '',
+    campaign:  r['CAMPAIGN']   || r['Campaign']   || r['campaign']   || '',
+    impressions: parseFloat(r['Impressions'] || r['IMPRESSIONS'] || 0),
+    reach:       parseFloat(r['Reach']       || r['REACH']       || 0),
+    messages:    parseFloat(r['Messages']    || r['MESSAGES']    || 0),
+    clicks:      parseFloat(r['Clicks']      || r['CLICKS']      || 0),
+    cpc:         parseFloat(r['Cost Per Click'] || r['CPC']      || 0),
+    spend:       parseFloat(r['SPEND USD']   || r['Spend']       || r['spend'] || 0),
+    purchases:   parseFloat(r['Purchases']   || r['PURCHASES']   || 0),
+    leads:       parseFloat(r['Leads']       || r['LEADS']       || 0),
+    revenue:     parseFloat(r['REVENUE']     || r['Revenue']     || 0),
+    roas:        parseFloat(r['ROAS']        || r['roas']        || 0)
+  };
+}
+
+function mergeCampaigns(rows){
+  var mapped = rows.map(mapRow).filter(function(r){ return r.spend>0||r.impressions>0; });
+  if(mapped.length){
+    allCampaigns = CAMPAIGNS.slice();
+    for(var i=0;i<mapped.length;i++) allCampaigns.push(mapped[i]);
+  }
+}
+
+function fetchSheetData(cb){
+  var status = document.getElementById('fetchStatus');
+  status.textContent = 'Fetching...';
+  fetch(SHEET_URL)
+    .then(function(r){ return r.json(); })
+    .then(function(rows){
+      if(rows && rows.length){
+        var mapped = rows.map(mapRow).filter(function(r){ return r.spend>0||r.impressions>0; });
+        if(mapped.length){
+          allCampaigns = CAMPAIGNS.slice();
+          for(var i=0;i<mapped.length;i++) allCampaigns.push(mapped[i]);
+        }
+        status.textContent = 'Updated ' + new Date().toLocaleTimeString();
+      } else {
+        status.textContent = 'No data in sheet';
+      }
+      if(cb) cb();
+    })
+    .catch(function(){
+      status.textContent = 'Using local data';
+      if(cb) cb();
+    });
+}
+
+function updateWeekFilter(){
+  var m = document.getElementById('monthFilter').value;
+  var sel = document.getElementById('weekFilter');
+  var grp = document.getElementById('weekFilterGroup');
+  sel.innerHTML = '<option value="all">All Weeks</option>';
+  if(m === 'all' || !weeklyData[m] || !weeklyData[m].length){ grp.style.display='none'; return; }
+  grp.style.display = '';
+  for(var i=0;i<weeklyData[m].length;i++){
+    var o = document.createElement('option');
+    o.value = weeklyData[m][i].label;
+    o.textContent = weeklyData[m][i].label;
+    sel.appendChild(o);
+  }
+}
+
+function getFilters(){
+  return {
+    month: document.getElementById('monthFilter').value,
+    platform: document.getElementById('platformFilter').value,
+    week: document.getElementById('weekFilter').value
+  };
+}
+
+function filteredCampaigns(){
+  var f = getFilters();
+  return allCampaigns.filter(function(d){
+    return (f.month==='all'||d.month===f.month) && (f.platform==='all'||d.platform===f.platform);
+  });
+}
+
+function activeWeekData(){
+  var f = getFilters();
+  if(f.week==='all') return null;
+  if(f.month==='all'||!weeklyData[f.month]) return null;
+  for(var i=0;i<weeklyData[f.month].length;i++){
+    if(weeklyData[f.month][i].label===f.week) return weeklyData[f.month][i];
+  }
+  return null;
+}
+
+function setLatestMonth(){
+  var order = ['Jan_26','Feb_26','Mar_26','Apr_26','May_26','Jun_26','Jul_26','Aug_26','Sep_26','Oct_26','Nov_26','Dec_26'];
+  var latest = '';
+  for(var i=0;i<order.length;i++){
+    var m = order[i];
+    for(var j=0;j<allCampaigns.length;j++){
+      if(allCampaigns[j].month===m){ latest=m; break; }
+    }
+  }
+  if(latest) document.getElementById('monthFilter').value = latest;
+}
+
+function sum(arr,key){
+  var s=0; for(var i=0;i<arr.length;i++) s+=(arr[i][key]||0); return s;
+}
+function fmtK(v){ var n=parseFloat(v); if(isNaN(n)) return '\u2014'; return n>=1000000?(n/1000000).toFixed(1)+'M':n>=1000?(n/1000).toFixed(1)+'K':n.toLocaleString(); }
+function fmtD(n,dec){ if(dec===undefined) dec=2; return isNaN(n)||!isFinite(n)?'\u2014':'$'+n.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+
+function renderDashboard(){
+  var campaigns = filteredCampaigns();
+  var weekRow = activeWeekData();
+  var isWeekly = !!weekRow;
+  renderKPIs(campaigns, weekRow);
+  document.getElementById('breakdownSection').style.display = isWeekly ? 'none' : 'block';
+  if(!isWeekly){
+    renderMeta(campaigns.filter(function(d){ return d.platform==='META'; }));
+    renderGoogle(campaigns.filter(function(d){ return d.platform==='Google'||d.platform==='GOOGLE'; }));
+  }
+  var m = getFilters().month;
+  var labels = {all:'All Months',Jan_26:'January 2026',Feb_26:'February 2026',Mar_26:'March 2026'};
+  document.getElementById('reportPeriod').textContent = labels[m] || m;
+}
+
+function renderKPIs(campaigns, weekRow){
+  var note = document.getElementById('weekNote');
+  var grid = document.getElementById('kpiGrid');
+
+  if(weekRow){
+    note.style.display = '';
+    note.innerHTML = 'Showing weekly data for <span>' + weekRow.label + '</span>';
+
+    var metaCamps = filteredCampaigns().filter(function(d){ return d.platform==='META'; });
+    var metaClicks = sum(metaCamps,'clicks');
+    var metaCpc = metaClicks ? weekRow.spend/metaClicks : 0;
+    var metaCtr = weekRow.impressions ? (metaClicks/weekRow.impressions*100) : 0;
+
+    var metaKpis = [
+      {l:'Spend',v:fmtD(weekRow.spend,0),s:'USD',c:''},
+      {l:'Impressions',v:fmtK(weekRow.impressions),s:'Total',c:''},
+      {l:'Clicks',v:metaClicks?metaClicks.toLocaleString():'\u2014',s:'Total',c:''},
+      {l:'Avg. CPC',v:fmtD(metaCpc),s:'Per Click',c:'accent'},
+      {l:'CTR',v:metaCtr?metaCtr.toFixed(2)+'%':'\u2014',s:'Click-Through Rate',c:'accent'}
+    ];
+    var googleKpis = [
+      {l:'Spend',v:'\u2014',s:'Coming soon',c:''},
+      {l:'Impressions',v:'\u2014',s:'Coming soon',c:''},
+      {l:'Clicks',v:'\u2014',s:'Coming soon',c:''},
+      {l:'Avg. CPC',v:'\u2014',s:'Coming soon',c:'accent'},
+      {l:'CTR',v:'\u2014',s:'Coming soon',c:'accent'}
+    ];
+
+    function makeCards(kpis){
+      return kpis.map(function(k){
+        return '<div class="kpi-card '+k.c+'"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+(k.v==='\u2014'?'<span style="color:var(--muted);font-size:1.2rem">\u2014</span>':k.v)+'</div><div class="kpi-sub">'+k.s+'</div></div>';
+      }).join('');
+    }
+
+    grid.innerHTML =
+      '<div class="platform-label"><span class="badge sales">META</span></div>'+
+      '<div class="kpi-grid">'+makeCards(metaKpis)+'</div>'+
+      '<div class="platform-label" style="margin-top:8px"><span class="badge sem">GOOGLE</span></div>'+
+      '<div class="kpi-grid">'+makeCards(googleKpis)+'</div>';
+
+  } else {
+    note.style.display = 'none';
+    var spend=sum(campaigns,'spend'), impr=sum(campaigns,'impressions');
+    var clicks=sum(campaigns,'clicks'), msg=sum(campaigns,'messages');
+    var cpc=clicks?spend/clicks:0, ctr=impr?clicks/impr*100:0;
+    var kpis=[
+      {l:'Total Spend',v:fmtD(spend,0),s:'USD',c:''},
+      {l:'Impressions',v:fmtK(impr),s:'Total',c:''},
+      {l:'Total Clicks',v:clicks?clicks.toLocaleString():'\u2014',s:'Total',c:''},
+      {l:'Avg. CPC',v:fmtD(cpc),s:'Per Click',c:'accent'},
+      {l:'CTR',v:ctr?ctr.toFixed(2)+'%':'\u2014',s:'Click-Through Rate',c:'accent'},
+      {l:'Messages',v:msg.toLocaleString(),s:'WhatsApp Leads',c:''}
+    ];
+    grid.innerHTML = '<div class="kpi-grid">'+kpis.map(function(k){
+      return '<div class="kpi-card '+k.c+'"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-sub">'+k.s+'</div></div>';
+    }).join('')+'</div>';
+  }
+}
+
+function renderMeta(data){
+  var objs = [];
+  for(var i=0;i<data.length;i++){ if(data[i].objective && objs.indexOf(data[i].objective)===-1) objs.push(data[i].objective); }
+  var bmap = {SALES:'sales',WHATSAPP:'whatsapp',SIGNUP:'signup'};
+  var html = '';
+  if(!data.length){ html='<div class="empty">No META data for selected filters</div>'; }
+  else {
+    for(var oi=0;oi<objs.length;oi++){
+      var obj = objs[oi];
+      var rows = data.filter(function(d){ return d.objective===obj; });
+      var tot = {impressions:0,reach:0,messages:0,clicks:0,spend:0,purchases:0,revenue:0};
+      for(var ri=0;ri<rows.length;ri++){
+        var r = rows[ri];
+        for(var k in tot) tot[k] += r[k]||0;
+      }
+      var badge = bmap[obj.toUpperCase()] || 'sales';
+      var isSales = obj.toUpperCase()==='SALES';
+      var isWA = obj.toUpperCase()==='WHATSAPP';
+      var isSignup = obj.toUpperCase()==='SIGNUP';
+
+      html += '<div class="obj-section"><div class="obj-header"><span class="badge '+badge+'">'+obj+'</span><span style="color:var(--muted);font-size:.8rem">'+rows.length+' campaign'+(rows.length!==1?'s':'')+'</span></div>';
+      html += '<div class="table-wrap"><table><thead><tr>';
+      html += '<th>Campaign</th><th class="num">Impressions</th><th class="num">Reach</th>';
+      if(isWA||isSignup) html += '<th class="num">Messages</th>';
+      html += '<th class="num">Clicks</th><th class="num">CPC</th><th class="num">Spend (USD)</th>';
+      if(isSales) html += '<th class="num">Purchases</th><th class="num">Revenue</th><th class="num">ROAS</th>';
+      if(isSignup) html += '<th class="num">Leads</th>';
+      html += '</tr></thead><tbody>';
+
+      for(var ri2=0;ri2<rows.length;ri2++){
+        var rr = rows[ri2];
+        html += '<tr><td>'+rr.campaign+'</td>';
+        html += '<td class="num">'+fmtK(rr.impressions)+'</td>';
+        html += '<td class="num">'+(rr.reach?fmtK(rr.reach):'\u2014')+'</td>';
+        if(isWA||isSignup) html += '<td class="num">'+(rr.messages||'\u2014')+'</td>';
+        html += '<td class="num">'+(rr.clicks?rr.clicks.toLocaleString():'\u2014')+'</td>';
+        html += '<td class="num">'+(rr.cpc?'$'+rr.cpc.toFixed(2):'\u2014')+'</td>';
+        html += '<td class="num highlight">$'+rr.spend.toFixed(2)+'</td>';
+        if(isSales) html += '<td class="num">'+(rr.purchases||'\u2014')+'</td><td class="num">'+(rr.revenue?fmtD(rr.revenue):'\u2014')+'</td><td class="num">'+(rr.roas?rr.roas.toFixed(2)+'x':'\u2014')+'</td>';
+        if(isSignup) html += '<td class="num">'+(rr.leads||'\u2014')+'</td>';
+        html += '</tr>';
+      }
+
+      html += '<tr class="total-row"><td>TOTAL</td>';
+      html += '<td class="num">'+fmtK(tot.impressions)+'</td>';
+      html += '<td class="num">'+fmtK(tot.reach)+'</td>';
+      if(isWA||isSignup) html += '<td class="num">'+tot.messages.toLocaleString()+'</td>';
+      html += '<td class="num">'+tot.clicks.toLocaleString()+'</td>';
+      html += '<td class="num">'+(tot.clicks?'$'+(tot.spend/tot.clicks).toFixed(2):'\u2014')+'</td>';
+      html += '<td class="num">$'+tot.spend.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>';
+      if(isSales) html += '<td class="num">'+tot.purchases+'</td><td class="num">'+fmtD(tot.revenue)+'</td><td class="num">'+(tot.spend?(tot.revenue/tot.spend).toFixed(2)+'x':'\u2014')+'</td>';
+      if(isSignup) html += '<td class="num">\u2014</td>';
+      html += '</tr></tbody></table></div></div>';
+    }
+  }
+  document.getElementById('metaPanel').innerHTML = html;
+}
+
+function renderGoogle(data){
+  if(!data.length){ document.getElementById('googlePanel').innerHTML='<div class="empty">No Google data for selected filters</div>'; return; }
+  var tot = {impressions:0,clicks:0,spend:0};
+  for(var i=0;i<data.length;i++){ tot.impressions+=data[i].impressions; tot.clicks+=data[i].clicks; tot.spend+=data[i].spend; }
+  var html = '<div class="table-wrap"><table><thead><tr><th>Type</th><th>Campaign</th><th class="num">Impressions</th><th class="num">Clicks</th><th class="num">CPC</th><th class="num">Spend (USD)</th></tr></thead><tbody>';
+  for(var i=0;i<data.length;i++){
+    var r = data[i];
+    html += '<tr><td><span class="badge '+(r.objective.toLowerCase().indexOf('max')>-1?'pmax':'sem')+'">'+r.objective+'</span></td>';
+    html += '<td>'+r.campaign+'</td><td class="num">'+fmtK(r.impressions)+'</td>';
+    html += '<td class="num">'+(r.clicks?r.clicks.toLocaleString():'\u2014')+'</td>';
+    html += '<td class="num">'+(r.cpc?'$'+r.cpc.toFixed(2):'\u2014')+'</td>';
+    html += '<td class="num highlight">$'+r.spend.toFixed(2)+'</td></tr>';
+  }
+  html += '<tr class="total-row"><td colspan="2">TOTAL</td><td class="num">'+fmtK(tot.impressions)+'</td><td class="num">'+tot.clicks.toLocaleString()+'</td>';
+  html += '<td class="num">'+(tot.clicks?'$'+(tot.spend/tot.clicks).toFixed(2):'\u2014')+'</td>';
+  html += '<td class="num">$'+tot.spend.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+'</td></tr>';
+  html += '</tbody></table></div>';
+  document.getElementById('googlePanel').innerHTML = html;
+}
+
+function switchTab(tab,el){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById(tab+'Panel').classList.add('active');
+}
+
+document.getElementById('monthFilter').addEventListener('change', function(){ updateWeekFilter(); renderDashboard(); });
+document.getElementById('weekFilter').addEventListener('change', function(){ renderDashboard(); });
+document.getElementById('platformFilter').addEventListener('change', function(){
+  var p = document.getElementById('platformFilter').value;
+  var tabs = document.getElementById('platformTabs');
+  if(p==='META'){
+    tabs.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    tabs.querySelectorAll('.tab')[0].classList.add('active');
+    document.querySelectorAll('.panel').forEach(function(x){ x.classList.remove('active'); });
+    document.getElementById('metaPanel').classList.add('active');
+  } else if(p==='Google'){
+    tabs.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    tabs.querySelectorAll('.tab')[1].classList.add('active');
+    document.querySelectorAll('.panel').forEach(function(x){ x.classList.remove('active'); });
+    document.getElementById('googlePanel').classList.add('active');
+  }
+  renderDashboard();
+});
+
+document.getElementById('refreshBtn').addEventListener('click', function(){
+  fetchSheetData(function(){
+    setLatestMonth();
+    updateWeekFilter();
+    renderDashboard();
+  });
+});
+
+// Init
+loadWeeklyData(function(){
+  mergePreloadedWeeks();
+  fetchSheetData(function(){
+    setLatestMonth();
+    updateWeekFilter();
+    renderDashboard();
+  });
+});
+</script>
+</body>
+</html>
