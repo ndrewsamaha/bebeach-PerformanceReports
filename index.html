@@ -276,7 +276,7 @@ function mergeCampaigns(rows){
 function fetchSheetData(cb){
   var status = document.getElementById('fetchStatus');
   status.textContent = 'Fetching...';
-  fetch(SHEET_URL)
+  fetch(SHEET_URL, {redirect: 'follow'})
     .then(function(r){ return r.json(); })
     .then(function(rows){
       if(rows && rows.length){
