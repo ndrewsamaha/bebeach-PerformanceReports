@@ -12,39 +12,28 @@
   --teal:#2d7d8e;--green:#1a8a4a;--red:#c0392b;--blue:#2c5fad;
 }
 body{background:var(--bg);color:var(--text);font-family:Calibri,sans-serif;min-height:100vh}
-
-/* LANDING */
 #landing{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 24px}
 .landing-header{text-align:center;margin-bottom:56px}
 .landing-logo{font-size:1rem;font-weight:700;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
 .landing-title{font-size:2rem;font-weight:700;color:var(--navy)}
 .client-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;max-width:720px}
-.client-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:40px 32px;text-align:center;position:relative;overflow:hidden;transition:all .25s}
-.client-card.clickable{cursor:pointer}
-.client-card.clickable:hover{border-color:var(--gold);box-shadow:0 8px 32px rgba(184,146,74,.12);transform:translateY(-3px)}
-.client-card.clickable::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);opacity:0;transition:.25s}
-.client-card.clickable:hover::before{opacity:1}
-.client-card.dimmed{opacity:.65}
-.logo-circle{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.client-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:40px 32px;text-align:center;position:relative;overflow:hidden;transition:all .25s;cursor:pointer;user-select:none}
+.client-card:hover{border-color:var(--gold);box-shadow:0 8px 32px rgba(184,146,74,.12);transform:translateY(-3px)}
+.client-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);opacity:0;transition:.25s}
+.client-card:hover::before{opacity:1}
+.logo-circle{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;pointer-events:none}
 .logo-circle.bb{background:#f0ede5;border:2px solid var(--gold-light);animation:pulseGold 2.5s ease-in-out infinite}
 .logo-circle.gi{background:#fdf5f0;border:2px solid #e8a87c;animation:pulseOrange 2.5s ease-in-out infinite}
 @keyframes pulseGold{0%,100%{box-shadow:0 0 0 0 rgba(184,146,74,.4);transform:scale(1)}50%{box-shadow:0 0 0 12px rgba(184,146,74,0);transform:scale(1.04)}}
 @keyframes pulseOrange{0%,100%{box-shadow:0 0 0 0 rgba(212,114,74,.4);transform:scale(1)}50%{box-shadow:0 0 0 12px rgba(212,114,74,0);transform:scale(1.04)}}
-.coming-badge{display:inline-block;margin-top:18px;background:#f0f4f8;color:var(--muted);font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase}
-
-/* DASHBOARD */
 #dashboard{display:none}
-
-/* HEADER */
-header{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px;position:sticky;top:0;z-index:100}
-.h-logo{font-size:1.3rem;font-weight:700;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;min-width:140px}
+header{background:var(--white);border-bottom:1px solid var(--border);padding:0 60px;display:flex;align-items:center;justify-content:space-between;height:80px;position:sticky;top:0;z-index:100}
+.h-logo{font-size:1.8rem;font-weight:700;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;min-width:180px}
 .h-logo span{color:var(--navy);font-weight:300}
-.h-center{display:flex;align-items:center;gap:40px}
-.h-right{display:flex;align-items:center;min-width:140px;justify-content:flex-end}
-
-/* CUSTOM DROPDOWN */
+.h-center{display:flex;align-items:center;gap:48px}
+.h-right{display:flex;align-items:center;min-width:180px;justify-content:flex-end}
 .hdd{position:relative;display:inline-block}
-.hdd-btn{background:transparent;border:none;color:var(--navy);padding:4px 0;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;outline:none;font-family:Calibri,sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;transition:color .2s}
+.hdd-btn{background:transparent;border:none;color:var(--navy);padding:4px 0;font-size:1.05rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;outline:none;font-family:Calibri,sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;transition:color .2s}
 .hdd-btn:after{content:'';display:inline-block;width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
 .hdd-btn.open:after{transform:rotate(-135deg) translateY(-2px)}
 .hdd-btn:hover{color:var(--gold)}
@@ -52,47 +41,28 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:0 4
 .hdd:hover .hdd-bar{width:100%}
 .hdd-menu{display:none;position:absolute;top:calc(100% + 20px);left:50%;transform:translateX(-50%);background:var(--white);border:1px solid var(--border);min-width:180px;z-index:500;box-shadow:0 8px 32px rgba(0,0,0,.1)}
 .hdd-menu.show{display:block}
-.hdd-item{padding:12px 24px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .15s;font-family:Calibri,sans-serif;white-space:nowrap;border-left:2px solid transparent}
+.hdd-item{padding:12px 24px;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .15s;font-family:Calibri,sans-serif;white-space:nowrap;border-left:2px solid transparent}
 .hdd-item:hover{color:var(--navy);background:var(--bg);border-left-color:var(--gold)}
 .hdd-item.sel{color:var(--gold);border-left-color:var(--gold)}
-
-/* BACK BUTTON */
-.back-btn{background:transparent;border:1.5px solid var(--navy);color:var(--navy);padding:8px 20px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:Calibri,sans-serif;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;position:relative;overflow:hidden}
+.back-btn{background:transparent;border:1.5px solid var(--navy);color:var(--navy);padding:12px 32px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:Calibri,sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;position:relative;overflow:hidden}
 .back-btn:before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--navy);transition:left .2s;z-index:0}
 .back-btn:hover:before{left:0}
 .back-btn:hover{color:var(--white)}
 .back-btn span{position:relative;z-index:1}
-
-/* BOTTOM NAV */
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--white);border-top:1px solid var(--border);box-shadow:0 -4px 20px rgba(0,0,0,.08);padding:10px 16px}
-.bnav-row{display:flex;gap:8px;align-items:center}
-.bnav-sel{flex:1;background:var(--bg);border:1.5px solid var(--border);color:var(--text);padding:10px;border-radius:10px;font-size:.85rem;outline:none;font-family:Calibri,sans-serif;cursor:pointer}
-.bnav-sel:focus{border-color:var(--gold)}
-.bnav-back{background:var(--navy);color:var(--white);border:none;padding:10px 16px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:Calibri,sans-serif}
-
-/* MAIN */
 .main{padding:28px 32px;max-width:1400px;margin:0 auto}
-
-/* TOGGLE */
 .toggle-wrap{display:flex;flex-direction:column;gap:5px;margin-bottom:28px}
 .toggle-wrap label{font-size:.68rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
 .toggle{display:flex;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:3px;width:fit-content}
 .tog{padding:7px 28px;border-radius:8px;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:var(--muted);font-family:Calibri,sans-serif;transition:.2s;user-select:none}
 .tog:hover{color:var(--navy)}
 .tog.on{background:var(--navy);color:var(--white)}
-
-/* WEEK BAR */
 .week-bar{background:var(--gold-pale);border:1.5px solid var(--gold-light);border-radius:12px;padding:14px 20px;display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
 .week-bar label{font-size:.72rem;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
 .week-bar select{background:var(--white);border:1.5px solid var(--gold-light);color:var(--text);padding:7px 14px;border-radius:8px;font-size:.88rem;outline:none;font-family:Calibri,sans-serif;cursor:pointer;min-width:200px}
 .week-bar select:focus{border-color:var(--gold)}
-
-/* SECTION TITLES */
 .sec-title{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .sec-title-txt{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 .sec-title-line{flex:1;height:1px;background:var(--border)}
-
-/* KPI */
 .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px}
 .kpi-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 18px;position:relative;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.04);transition:.2s}
 .kpi-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-1px)}
@@ -104,15 +74,11 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:0 4
 .kpi-sub{font-size:.72rem;color:var(--muted)}
 .plat-sec{margin-bottom:28px}
 .plat-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-
-/* TABS */
 .tab-bar{display:flex;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:4px;width:fit-content;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:24px}
 .tab{padding:9px 28px;cursor:pointer;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-radius:9px;transition:.2s;font-family:Calibri,sans-serif}
 .tab:hover{color:var(--navy);background:var(--bg)}
 .tab.active{background:var(--navy);color:var(--white)}
 .panel{display:none}.panel.active{display:block}
-
-/* TABLES */
 .obj-sec{background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.04)}
 .obj-hdr{padding:16px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);background:var(--bg)}
 .obj-count{font-size:.75rem;color:var(--muted)}
@@ -122,7 +88,8 @@ header{background:var(--white);border-bottom:1px solid var(--border);padding:0 4
 .badge.signup{background:var(--gold-pale);color:var(--gold)}
 .badge.pmax{background:#fdecea;color:var(--red)}
 .badge.sem{background:#eaf0fb;color:var(--blue)}
-.badge.clicks{background:#eaf0fb;color:var(--blue)}
+.badge.traffic{background:#f0eafb;color:#7c3aed}
+.badge.profile{background:#e8f0fb;color:#1a56db}
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.88rem;font-family:Calibri,sans-serif}
 thead{background:var(--bg)}
@@ -138,18 +105,17 @@ tr:hover td:first-child{background:#fdfbf8}
 .hi{color:var(--gold);font-weight:700}
 .date-col{color:var(--muted);font-size:.82rem}
 .empty{text-align:center;padding:48px;color:var(--muted);font-size:.9rem}
-
-/* MOBILE */
 @media(max-width:768px){
   .client-grid{grid-template-columns:1fr;max-width:340px}
   .landing-title{font-size:1.5rem}
-  header{padding:0 16px}
-  .h-logo{font-size:1rem;min-width:auto}
-  .h-center{gap:16px}
-  .hdd-btn{font-size:.72rem}
-  .bottom-nav{display:none}
-  header{height:auto;padding:12px 16px;flex-wrap:wrap;gap:8px}
-  .main{padding:14px;padding-bottom:90px}
+  header{height:auto;padding:10px 12px;flex-wrap:nowrap;gap:8px;align-items:center}
+  .h-logo{font-size:.82rem;letter-spacing:.15em;min-width:auto;flex-shrink:0}
+  .h-center{gap:6px;flex:1;justify-content:center}
+  .hdd-btn{font-size:.62rem;letter-spacing:.05em;padding:2px 0;gap:4px}
+  .hdd-btn:after{width:5px;height:5px}
+  .h-right{min-width:auto;flex-shrink:0}
+  .back-btn{padding:5px 10px;font-size:.72rem;letter-spacing:.04em}
+  .main{padding:14px}
   .toggle{width:100%}
   .tog{flex:1;text-align:center;padding:10px 8px;font-size:.8rem}
   .week-bar{flex-direction:column;align-items:flex-start;gap:10px;padding:12px 14px}
@@ -168,14 +134,13 @@ tr:hover td:first-child{background:#fdfbf8}
 </head>
 <body>
 
-<!-- LANDING -->
 <div id="landing">
   <div class="landing-header">
     <div class="landing-logo">&#9670; Reports Portal</div>
     <div class="landing-title">Digital Ads Performance</div>
   </div>
   <div class="client-grid">
-    <div class="client-card clickable" id="cardBB">
+    <div class="client-card" id="cardBB">
       <div class="logo-circle bb">
         <svg width="80" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
           <text x="50" y="34" text-anchor="middle" font-family="Georgia,serif" font-size="18" letter-spacing="3" fill="#9a7d3a">BE</text>
@@ -184,24 +149,22 @@ tr:hover td:first-child{background:#fdfbf8}
         </svg>
       </div>
     </div>
-    <div class="client-card dimmed">
+    <div class="client-card" id="cardGI">
       <div class="logo-circle gi">
         <svg width="80" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
           <text x="50" y="46" text-anchor="middle" font-family="Palatino Linotype,Palatino,Book Antiqua,serif" font-style="italic" font-size="26" fill="#d4724a">Giulia</text>
           <text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="8" letter-spacing="4" fill="#d4724a">BY THE BEACH</text>
         </svg>
       </div>
-      <div class="coming-badge">Coming Soon</div>
     </div>
   </div>
 </div>
 
-<!-- DASHBOARD -->
 <div id="dashboard">
   <header>
-    <div class="h-logo">BE <span>BEACH</span></div>
+    <div class="h-logo" id="hLogo">BE <span>BEACH</span></div>
     <div class="h-center">
-      <div class="hdd" id="ddP">
+      <div class="hdd" id="ddPWrap">
         <button class="hdd-btn" id="ddPBtn">All Platforms</button>
         <div class="hdd-bar"></div>
         <div class="hdd-menu" id="ddPMenu">
@@ -210,52 +173,16 @@ tr:hover td:first-child{background:#fdfbf8}
           <div class="hdd-item" data-val="Google">Google</div>
         </div>
       </div>
-      <div class="hdd" id="ddM">
-        <button class="hdd-btn" id="ddMBtn">March 2026</button>
+      <div class="hdd" id="ddMWrap">
+        <button class="hdd-btn" id="ddMBtn">February 2026</button>
         <div class="hdd-bar"></div>
-        <div class="hdd-menu" id="ddMMenu">
-          <div class="hdd-item" data-val="all">All Months</div>
-          <div class="hdd-item" data-val="Jan_26">January 2026</div>
-          <div class="hdd-item" data-val="Feb_26">February 2026</div>
-          <div class="hdd-item sel" data-val="Mar_26">March 2026</div>
-        </div>
+        <div class="hdd-menu" id="ddMMenu"></div>
       </div>
     </div>
     <div class="h-right">
-      <button class="back-btn" id="backBtn"><span>&#8592; Back</span></button>
+      <button class="back-btn" id="backBtn"><span>Home</span></button>
     </div>
   </header>
-
-  <!-- Hidden selects for JS -->
-  <select id="platformFilter" style="display:none">
-    <option value="all">All Platforms</option>
-    <option value="META">META</option>
-    <option value="Google">Google</option>
-  </select>
-  <select id="monthFilter" style="display:none">
-    <option value="all">All Months</option>
-    <option value="Jan_26">January 2026</option>
-    <option value="Feb_26">February 2026</option>
-    <option value="Mar_26" selected>March 2026</option>
-  </select>
-
-  <!-- Bottom nav mobile -->
-  <div class="bottom-nav" id="bottomNav">
-    <div class="bnav-row">
-      <select id="platformFilterM" class="bnav-sel">
-        <option value="all">All Platforms</option>
-        <option value="META">META</option>
-        <option value="Google">Google</option>
-      </select>
-      <select id="monthFilterM" class="bnav-sel">
-        <option value="all">All Months</option>
-        <option value="Jan_26">Jan 2026</option>
-        <option value="Feb_26">Feb 2026</option>
-        <option value="Mar_26">Mar 2026</option>
-      </select>
-      <button class="bnav-back" id="backBtnM">&#8592;</button>
-    </div>
-  </div>
 
   <div class="main">
     <div class="toggle-wrap">
@@ -265,16 +192,13 @@ tr:hover td:first-child{background:#fdfbf8}
         <div class="tog" id="togWeekly">Weekly</div>
       </div>
     </div>
-
     <div class="week-bar" id="weekBar" style="display:none">
       <label>&#128197; Select Week</label>
-      <select id="weekFilter"><option value="">— Choose a week —</option></select>
+      <select id="weekFilter"><option value="">Choose a week</option></select>
       <span id="weekTotalSpend" style="margin-left:auto;font-size:.85rem;font-weight:700;color:var(--gold);white-space:nowrap"></span>
     </div>
-
     <div class="sec-title"><span class="sec-title-txt">Performance Summary</span><div class="sec-title-line"></div></div>
     <div id="kpiGrid"></div>
-
     <div id="breakdownSection">
       <div class="sec-title"><span class="sec-title-txt">Campaign Breakdown</span><div class="sec-title-line"></div></div>
       <div class="tab-bar">
@@ -295,54 +219,54 @@ function fmtC(n){return(!n||isNaN(n))?'\u2014':(n*USD).toFixed(2);}
 function sum(a,k){var s=0;for(var i=0;i<a.length;i++)s+=a[i][k]||0;return s;}
 function splitCamp(name){name=name.trim();var idx=name.lastIndexOf(' - ');if(idx===-1)return{name:name,date:''};return{name:name.substring(0,idx).trim(),date:name.substring(idx+3).trim()};}
 
-var CAMPAIGNS=[
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Tiesto - 22 Jan 2026',impressions:315011,reach:109591,messages:53,clicks:6048,cpc:0.28,spend:1700,purchases:102,leads:0,revenue:20220,roas:11.89},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Agoria - 24 Jan 2026',impressions:108163,reach:35668,messages:18,clicks:853,cpc:0.82,spend:700,purchases:11,leads:0,revenue:1747,roas:2.50},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Salome - 23 Jan 2026',impressions:115763,reach:40949,messages:13,clicks:802,cpc:0.87,spend:700,purchases:16,leads:0,revenue:3458,roas:4.94},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Pawsa - 06 Feb 2026',impressions:128932,reach:31684,messages:11,clicks:1853,cpc:0.34,spend:636,purchases:30,leads:0,revenue:3930,roas:6.17},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Arodes - 16 Jan 2026',impressions:96144,reach:31469,messages:5,clicks:1076,cpc:0.56,spend:600,purchases:22,leads:0,revenue:3739,roas:6.23},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Addasiya - 18 Jan 2026',impressions:93726,reach:30386,messages:15,clicks:727,cpc:0.82,spend:597,purchases:35,leads:0,revenue:5887,roas:9.86},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Ankhoi - 31 Jan 2026',impressions:57597,reach:16874,messages:2,clicks:550,cpc:0.55,spend:300,purchases:12,leads:0,revenue:1032,roas:3.44},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Arodes - 30 Jan 2026',impressions:43149,reach:14468,messages:12,clicks:389,cpc:0.77,spend:300,purchases:4,leads:0,revenue:209,roas:0.70},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'MESTIZA - 14 Feb 2026',impressions:48973,reach:23963,messages:9,clicks:602,cpc:0.50,spend:300,purchases:18,leads:0,revenue:1449,roas:4.83},
-  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Mont Rouge - 03 Jan 2026',impressions:66328,reach:22325,messages:29,clicks:1023,cpc:0.24,spend:242,purchases:12,leads:0,revenue:2422,roas:9.99},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Wed - Ladies - Jan 2026',impressions:72946,reach:28443,messages:186,clicks:946,cpc:1.06,spend:1000,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sun - Saiana - Jan 2026',impressions:80759,reach:20171,messages:146,clicks:901,cpc:1.11,spend:1000,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Arodes - 16 Jan 2026',impressions:23519,reach:11788,messages:46,clicks:209,cpc:3.82,spend:799,purchases:5,leads:0,revenue:636,roas:0.80},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Rolbac - 10 Jan 2026',impressions:62546,reach:22242,messages:64,clicks:534,cpc:1.12,spend:600,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Lehar - 09 Jan 2026',impressions:63955,reach:32573,messages:25,clicks:360,cpc:1.67,spend:600,purchases:1,leads:0,revenue:104,roas:0.17},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - George - 17 Jan 2026',impressions:54905,reach:22383,messages:32,clicks:333,cpc:1.80,spend:600,purchases:2,leads:0,revenue:335,roas:0.56},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - BOM - 02 Jan 2026',impressions:69413,reach:37185,messages:49,clicks:430,cpc:1.39,spend:596,purchases:2,leads:0,revenue:55,roas:0.09},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Thu - Tiesto - 22 Jan 2026',impressions:29726,reach:18484,messages:104,clicks:390,cpc:1.03,spend:400,purchases:1,leads:0,revenue:151,roas:0.38},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Ankhoi - 31 Jan 2026',impressions:11645,reach:5715,messages:57,clicks:238,cpc:1.68,spend:400,purchases:4,leads:0,revenue:212,roas:0.53},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Agoria - 24 Jan 2026',impressions:13621,reach:9072,messages:18,clicks:114,cpc:2.63,spend:300,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Salome - 23 Jan 2026',impressions:9390,reach:4810,messages:11,clicks:55,cpc:5.45,spend:300,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Line Up - Jan 2025',impressions:51600,reach:15097,messages:12,clicks:701,cpc:0.39,spend:274,purchases:2,leads:0,revenue:1313,roas:4.79},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Mont rouge - 03 Jan 2026',impressions:18942,reach:8697,messages:21,clicks:173,cpc:0.90,spend:156,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Brunch - 01 Jan 2026',impressions:11737,reach:8788,messages:25,clicks:100,cpc:1.06,spend:106,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'META',objective:'SIGNUP',campaign:'Pawsa - 06 Feb 2026',impressions:110985,reach:61369,messages:20,clicks:2718,cpc:0.18,spend:500,purchases:0,leads:319,revenue:0,roas:0},
-  {month:'Jan_26',platform:'Google',objective:'Clicks',campaign:'SEM',impressions:21800,reach:0,messages:0,clicks:21800,cpc:0.40,spend:800,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Jan_26',platform:'Google',objective:'Clicks',campaign:'P_MAX',impressions:207000,reach:0,messages:0,clicks:8940,cpc:0.09,spend:813,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Pawsa - 06 Feb 2026',impressions:71666,reach:19632,messages:17,clicks:1080,cpc:0.53,spend:363.27,purchases:28,leads:0,revenue:4548.88,roas:12.52},
-  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Miguelle & Tons - 07 Feb 2026',impressions:82313,reach:19637,messages:20,clicks:735,cpc:0.68,spend:499.98,purchases:23,leads:0,revenue:5431.56,roas:10.86},
-  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'MESTIZA - 14 Feb 2026',impressions:81054,reach:18611,messages:32,clicks:1077,cpc:0.37,spend:400.11,purchases:21,leads:0,revenue:2563.55,roas:6.41},
-  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Desire - 27 Mar 2026',impressions:23158,reach:7455,messages:4,clicks:180,cpc:0.49,spend:87.69,purchases:3,leads:0,revenue:354.89,roas:4.05},
-  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Camelphat - 20 Mar 2026',impressions:29623,reach:12220,messages:4,clicks:516,cpc:0.21,spend:110.77,purchases:2,leads:0,revenue:269.99,roas:2.44},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Wed - Ladies - Feb 2026',impressions:112489,reach:31026,messages:279,clicks:1244,cpc:1.21,spend:1500,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sun - Saiana - Feb 2026',impressions:92680,reach:20520,messages:237,clicks:1172,cpc:1.28,spend:1500,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Calussa - 13 Feb 2026',impressions:22350,reach:9292,messages:22,clicks:185,cpc:2.16,spend:399,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Pawsa - 06 Feb 2026',impressions:14674,reach:6914,messages:81,clicks:269,cpc:1.49,spend:400,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - 21 Feb 2026',impressions:21919,reach:10336,messages:33,clicks:317,cpc:0.95,spend:300,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Franc Fala - 28 Feb 2026',impressions:24953,reach:12349,messages:84,clicks:477,cpc:1.05,spend:500,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Mestiza - 14 Feb 2026',impressions:20671,reach:10948,messages:124,clicks:458,cpc:0.87,spend:400,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Miguelle & Tons - 07 Feb 2026',impressions:8294,reach:4456,messages:49,clicks:196,cpc:2.04,spend:400,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Valentine - Feb 2026',impressions:2929,reach:1041,messages:19,clicks:0,cpc:1.57,spend:30,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'META',objective:'SIGNUP',campaign:'Steve Aoki - 02 April 2026',impressions:35738,reach:29333,messages:5,clicks:939,cpc:0.11,spend:105,purchases:0,leads:79,revenue:0,roas:0},
-  {month:'Feb_26',platform:'Google',objective:'P_Max',campaign:'Performance Max',impressions:21100,reach:0,messages:0,clicks:3890,cpc:0.21,spend:805,purchases:0,leads:0,revenue:0,roas:0},
-  {month:'Feb_26',platform:'Google',objective:'SEM',campaign:'Search',impressions:10600,reach:0,messages:0,clicks:1620,cpc:0.49,spend:800,purchases:0,leads:0,revenue:0,roas:0}
+var BB_CAMPAIGNS=[
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Tiesto - 22 Jan 2026',impressions:315011,reach:109591,messages:53,clicks:6048,cpc:0.28,spend:1700,purchases:102,leads:0,revenue:20220,roas:11.89,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Agoria - 24 Jan 2026',impressions:108163,reach:35668,messages:18,clicks:853,cpc:0.82,spend:700,purchases:11,leads:0,revenue:1747,roas:2.50,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Salome - 23 Jan 2026',impressions:115763,reach:40949,messages:13,clicks:802,cpc:0.87,spend:700,purchases:16,leads:0,revenue:3458,roas:4.94,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Pawsa - 06 Feb 2026',impressions:128932,reach:31684,messages:11,clicks:1853,cpc:0.34,spend:636,purchases:30,leads:0,revenue:3930,roas:6.17,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Arodes - 16 Jan 2026',impressions:96144,reach:31469,messages:5,clicks:1076,cpc:0.56,spend:600,purchases:22,leads:0,revenue:3739,roas:6.23,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Addasiya - 18 Jan 2026',impressions:93726,reach:30386,messages:15,clicks:727,cpc:0.82,spend:597,purchases:35,leads:0,revenue:5887,roas:9.86,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Ankhoi - 31 Jan 2026',impressions:57597,reach:16874,messages:2,clicks:550,cpc:0.55,spend:300,purchases:12,leads:0,revenue:1032,roas:3.44,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Arodes - 30 Jan 2026',impressions:43149,reach:14468,messages:12,clicks:389,cpc:0.77,spend:300,purchases:4,leads:0,revenue:209,roas:0.70,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'MESTIZA - 14 Feb 2026',impressions:48973,reach:23963,messages:9,clicks:602,cpc:0.50,spend:300,purchases:18,leads:0,revenue:1449,roas:4.83,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SALES',campaign:'Mont Rouge - 03 Jan 2026',impressions:66328,reach:22325,messages:29,clicks:1023,cpc:0.24,spend:242,purchases:12,leads:0,revenue:2422,roas:9.99,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Wed - Ladies - Jan 2026',impressions:72946,reach:28443,messages:186,clicks:946,cpc:1.06,spend:1000,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sun - Saiana - Jan 2026',impressions:80759,reach:20171,messages:146,clicks:901,cpc:1.11,spend:1000,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Arodes - 16 Jan 2026',impressions:23519,reach:11788,messages:46,clicks:209,cpc:3.82,spend:799,purchases:5,leads:0,revenue:636,roas:0.80,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Rolbac - 10 Jan 2026',impressions:62546,reach:22242,messages:64,clicks:534,cpc:1.12,spend:600,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Lehar - 09 Jan 2026',impressions:63955,reach:32573,messages:25,clicks:360,cpc:1.67,spend:600,purchases:1,leads:0,revenue:104,roas:0.17,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - George - 17 Jan 2026',impressions:54905,reach:22383,messages:32,clicks:333,cpc:1.80,spend:600,purchases:2,leads:0,revenue:335,roas:0.56,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - BOM - 02 Jan 2026',impressions:69413,reach:37185,messages:49,clicks:430,cpc:1.39,spend:596,purchases:2,leads:0,revenue:55,roas:0.09,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Thu - Tiesto - 22 Jan 2026',impressions:29726,reach:18484,messages:104,clicks:390,cpc:1.03,spend:400,purchases:1,leads:0,revenue:151,roas:0.38,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Ankhoi - 31 Jan 2026',impressions:11645,reach:5715,messages:57,clicks:238,cpc:1.68,spend:400,purchases:4,leads:0,revenue:212,roas:0.53,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Agoria - 24 Jan 2026',impressions:13621,reach:9072,messages:18,clicks:114,cpc:2.63,spend:300,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Salome - 23 Jan 2026',impressions:9390,reach:4810,messages:11,clicks:55,cpc:5.45,spend:300,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Line Up - Jan 2025',impressions:51600,reach:15097,messages:12,clicks:701,cpc:0.39,spend:274,purchases:2,leads:0,revenue:1313,roas:4.79,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Mont rouge - 03 Jan 2026',impressions:18942,reach:8697,messages:21,clicks:173,cpc:0.90,spend:156,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Brunch - 01 Jan 2026',impressions:11737,reach:8788,messages:25,clicks:100,cpc:1.06,spend:106,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'SIGNUP',campaign:'Pawsa - 06 Feb 2026',impressions:110985,reach:61369,messages:20,clicks:2718,cpc:0.18,spend:500,purchases:0,leads:319,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'Google',objective:'Clicks',campaign:'SEM',impressions:21800,reach:0,messages:0,clicks:21800,cpc:0.40,spend:800,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'Google',objective:'Clicks',campaign:'P_MAX',impressions:207000,reach:0,messages:0,clicks:8940,cpc:0.09,spend:813,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Pawsa - 06 Feb 2026',impressions:71666,reach:19632,messages:17,clicks:1080,cpc:0.53,spend:363.27,purchases:28,leads:0,revenue:4548.88,roas:12.52,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Miguelle & Tons - 07 Feb 2026',impressions:82313,reach:19637,messages:20,clicks:735,cpc:0.68,spend:499.98,purchases:23,leads:0,revenue:5431.56,roas:10.86,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'MESTIZA - 14 Feb 2026',impressions:81054,reach:18611,messages:32,clicks:1077,cpc:0.37,spend:400.11,purchases:21,leads:0,revenue:2563.55,roas:6.41,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Desire - 27 Mar 2026',impressions:23158,reach:7455,messages:4,clicks:180,cpc:0.49,spend:87.69,purchases:3,leads:0,revenue:354.89,roas:4.05,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'SALES',campaign:'Camelphat - 20 Mar 2026',impressions:29623,reach:12220,messages:4,clicks:516,cpc:0.21,spend:110.77,purchases:2,leads:0,revenue:269.99,roas:2.44,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Wed - Ladies - Feb 2026',impressions:112489,reach:31026,messages:279,clicks:1244,cpc:1.21,spend:1500,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sun - Saiana - Feb 2026',impressions:92680,reach:20520,messages:237,clicks:1172,cpc:1.28,spend:1500,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Calussa - 13 Feb 2026',impressions:22350,reach:9292,messages:22,clicks:185,cpc:2.16,spend:399,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Fri - Pawsa - 06 Feb 2026',impressions:14674,reach:6914,messages:81,clicks:269,cpc:1.49,spend:400,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - 21 Feb 2026',impressions:21919,reach:10336,messages:33,clicks:317,cpc:0.95,spend:300,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Franc Fala - 28 Feb 2026',impressions:24953,reach:12349,messages:84,clicks:477,cpc:1.05,spend:500,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Mestiza - 14 Feb 2026',impressions:20671,reach:10948,messages:124,clicks:458,cpc:0.87,spend:400,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Sat - Miguelle & Tons - 07 Feb 2026',impressions:8294,reach:4456,messages:49,clicks:196,cpc:2.04,spend:400,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Valentine - Feb 2026',impressions:2929,reach:1041,messages:19,clicks:0,cpc:1.57,spend:30,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'SIGNUP',campaign:'Steve Aoki - 02 April 2026',impressions:35738,reach:29333,messages:5,clicks:939,cpc:0.11,spend:105,purchases:0,leads:79,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'Google',objective:'P_Max',campaign:'Performance Max',impressions:21100,reach:0,messages:0,clicks:3890,cpc:0.21,spend:805,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'Google',objective:'SEM',campaign:'Search',impressions:10600,reach:0,messages:0,clicks:1620,cpc:0.49,spend:800,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0}
 ];
 
-var WEEKS={
+var BB_WEEKS={
   Jan_26:[
     {label:'Jan 1 \u2013 Jan 4',impressions:188734,reach:56997,messages:180,clicks:0,spend:1355.73},
     {label:'Jan 5 \u2013 Jan 11',impressions:330794,reach:111937,messages:207,clicks:0,spend:2445.55},
@@ -363,14 +287,60 @@ var WEEKS={
   ]
 };
 
+var GI_CAMPAIGNS=[
+  {month:'Jan_26',platform:'META',objective:'PROFILE VISITS',campaign:'Page Growth - Jan 2026 (General)',impressions:127192,reach:70083,messages:18,clicks:4776,cpc:0.209,spend:999.87,purchases:0,leads:0,revenue:0,roas:0,profileVisits:5099,follows:954},
+  {month:'Jan_26',platform:'META',objective:'PROFILE VISITS',campaign:'Page Growth - Jan 2026 (RTG)',impressions:42054,reach:28146,messages:7,clicks:1651,cpc:0.182,spend:299.91,purchases:0,leads:0,revenue:0,roas:0,profileVisits:1759,follows:237},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Valentine - 14 Feb 2026 (General)',impressions:697,reach:455,messages:2,clicks:16,cpc:4.149,spend:66.38,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Jan_26',platform:'META',objective:'WHATSAPP',campaign:'Valentine - 14 Feb 2026 (RTG)',impressions:4269,reach:2649,messages:1,clicks:23,cpc:1.168,spend:26.87,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Iftar - Feb 2026 (Iftar)',impressions:9802,reach:4767,messages:11,clicks:121,cpc:1.649,spend:199.51,purchases:2,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Iftar - Feb 2026 (RTG)',impressions:18760,reach:9613,messages:2,clicks:162,cpc:0.308,spend:49.93,purchases:0,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Valentine - 14 Feb 2026 (General)',impressions:3583,reach:1922,messages:43,clicks:141,cpc:3.075,spend:433.62,purchases:5,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'WHATSAPP',campaign:'Valentine - 14 Feb 2026 (RTG)',impressions:23016,reach:9172,messages:7,clicks:141,cpc:0.872,spend:123.03,purchases:1,leads:0,revenue:0,roas:0,profileVisits:0,follows:0},
+  {month:'Feb_26',platform:'META',objective:'PROFILE VISITS',campaign:'Page Growth - Feb 2026 (General)',impressions:112323,reach:71740,messages:16,clicks:3967,cpc:0.252,spend:999.93,purchases:737,leads:0,revenue:0,roas:0,profileVisits:4151,follows:737},
+  {month:'Feb_26',platform:'META',objective:'PROFILE VISITS',campaign:'Page Growth - Feb 2026 (RTG)',impressions:39277,reach:26838,messages:12,clicks:1709,cpc:0.175,spend:299.87,purchases:189,leads:0,revenue:0,roas:0,profileVisits:1751,follows:189}
+];
+
+var GI_WEEKS={
+  Feb_26:[
+    {label:'Feb 2 \u2013 Feb 8',impressions:64858,reach:52955,messages:18,clicks:1922,spend:573.86,follows:210,profileVisits:1908},
+    {label:'Feb 9 \u2013 Feb 15',impressions:42812,reach:31659,messages:42,clicks:1489,spend:626.65,follows:293,profileVisits:1524},
+    {label:'Feb 16 \u2013 Feb 22',impressions:51481,reach:38093,messages:18,clicks:1496,spend:456.51,follows:252,profileVisits:1465},
+    {label:'Feb 23 \u2013 Feb 28',impressions:38512,reach:29458,messages:12,clicks:1068,spend:371.53,follows:167,profileVisits:1035}
+  ],
+  Mar_26:[
+    {label:'Mar 2 \u2013 Mar 8',impressions:94400,reach:63709,messages:24,clicks:1919,spend:435.91,follows:304,profileVisits:1777},
+    {label:'Mar 9 \u2013 Mar 15',impressions:4093,reach:3909,messages:2,clicks:106,spend:22.05,follows:19,profileVisits:104},
+    {label:'Mar 16 \u2013 Mar 22',impressions:44477,reach:21586,messages:22,clicks:189,spend:200.70,follows:13,profileVisits:179}
+  ]
+};
+
+var CLIENTS={
+  bebeach:{
+    logoHtml:'BE <span>BEACH</span>',
+    campaigns:BB_CAMPAIGNS,
+    weeks:BB_WEEKS,
+    defaultMonth:'Feb_26',
+    months:[{val:'Jan_26',label:'January 2026'},{val:'Feb_26',label:'February 2026'},{val:'Mar_26',label:'March 2026'}]
+  },
+  giulia:{
+    logoHtml:'<span style="font-family:Palatino Linotype,Palatino,serif;font-style:italic;font-weight:400;font-size:1.5rem;letter-spacing:.05em">Giulia</span>',
+    campaigns:GI_CAMPAIGNS,
+    weeks:GI_WEEKS,
+    defaultMonth:'Feb_26',
+    months:[{val:'Jan_26',label:'January 2026'},{val:'Feb_26',label:'February 2026'},{val:'Mar_26',label:'March 2026'}]
+  }
+};
+
+var activeClient='bebeach';
 var isWeekly=false;
 var curPlatform='all';
-var curMonth='Mar_26';
+var curMonth='Feb_26';
 
-function getFilters(){return{month:curMonth,platform:curPlatform};}
+function getClient(){return CLIENTS[activeClient];}
 
 function filteredCampaigns(){
-  return CAMPAIGNS.filter(function(d){
+  var c=getClient();
+  return c.campaigns.filter(function(d){
     return(curMonth==='all'||d.month===curMonth)&&(curPlatform==='all'||d.platform===curPlatform);
   });
 }
@@ -378,16 +348,18 @@ function filteredCampaigns(){
 function getSelectedWeek(){
   var label=document.getElementById('weekFilter').value;
   if(!label) return null;
-  var pool=curMonth!=='all'&&WEEKS[curMonth]?WEEKS[curMonth]:Object.values(WEEKS).reduce(function(a,b){return a.concat(b);},[]);
+  var w=getClient().weeks;
+  var pool=curMonth!=='all'&&w[curMonth]?w[curMonth]:Object.values(w).reduce(function(a,b){return a.concat(b);},[]);
   for(var i=0;i<pool.length;i++){if(pool[i].label===label)return pool[i];}
   return null;
 }
 
 function populateWeeks(){
   var sel=document.getElementById('weekFilter');
-  sel.innerHTML='<option value="">— Choose a week —</option>';
-  var pool=curMonth!=='all'&&WEEKS[curMonth]?WEEKS[curMonth]:Object.values(WEEKS).reduce(function(a,b){return a.concat(b);},[]);
-  pool.forEach(function(w){var o=document.createElement('option');o.value=w.label;o.textContent=w.label;sel.appendChild(o);});
+  sel.innerHTML='<option value="">Choose a week</option>';
+  var w=getClient().weeks;
+  var pool=curMonth!=='all'&&w[curMonth]?w[curMonth]:Object.values(w).reduce(function(a,b){return a.concat(b);},[]);
+  pool.forEach(function(wk){var o=document.createElement('option');o.value=wk.label;o.textContent=wk.label;sel.appendChild(o);});
 }
 
 function updateWeekSpend(){
@@ -396,58 +368,65 @@ function updateWeekSpend(){
   if(el) el.textContent=w?'Total Spend: AED '+fmtA(w.spend,0):'';
 }
 
-function getLatestMonth(){
-  return 'Feb_26';
-}
-
-function setLatestMonth(){
-  var latest=getLatestMonth();
-  if(!latest) return;
-  curMonth=latest;
-  // Update mobile select
-  document.getElementById('monthFilterM').value=latest;
-  // Update custom dropdown
+function buildMonthMenu(){
+  var c=getClient();
   var menu=document.getElementById('ddMMenu');
-  var btn=document.getElementById('ddMBtn');
-  var item=menu.querySelector('[data-val="'+latest+'"]');
-  if(item){
-    btn.firstChild.nodeValue=item.textContent;
-    menu.querySelectorAll('.hdd-item').forEach(function(i){i.classList.remove('sel');});
-    item.classList.add('sel');
-  }
+  menu.innerHTML='';
+  var items=[{val:'all',label:'All Months'}].concat(c.months);
+  items.forEach(function(m){
+    var el=document.createElement('div');
+    el.className='hdd-item'+(curMonth===m.val?' sel':'');
+    el.setAttribute('data-val',m.val);
+    el.textContent=m.label;
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      curMonth=this.getAttribute('data-val');
+      document.getElementById('ddMBtn').firstChild.nodeValue=this.textContent;
+      menu.querySelectorAll('.hdd-item').forEach(function(i){i.classList.remove('sel');});
+      this.classList.add('sel');
+      menu.classList.remove('show');
+      document.getElementById('ddMBtn').classList.remove('open');
+      if(isWeekly) populateWeeks();
+      renderDashboard();
+    });
+    menu.appendChild(el);
+  });
+  var active=c.months.find(function(m){return m.val===curMonth;});
+  document.getElementById('ddMBtn').firstChild.nodeValue=active?active.label:'All Months';
 }
 
-function setPlatform(val,label){
-  curPlatform=val;
-  document.getElementById('platformFilterM').value=val;
-  var btn=document.getElementById('ddPBtn');
-  btn.firstChild.nodeValue=label;
-  document.getElementById('ddPMenu').querySelectorAll('.hdd-item').forEach(function(i){i.classList.toggle('sel',i.getAttribute('data-val')===val);});
-  if(val==='META') switchPlatformTab('meta');
-  else if(val==='Google') switchPlatformTab('google');
+function openClient(clientId){
+  activeClient=clientId;
+  var c=getClient();
+  isWeekly=false;
+  curPlatform='all';
+  curMonth=c.defaultMonth||'Feb_26';
+  document.getElementById('hLogo').innerHTML=c.logoHtml;
+  document.getElementById('togMonthly').classList.add('on');
+  document.getElementById('togWeekly').classList.remove('on');
+  document.getElementById('weekBar').style.display='none';
+  document.getElementById('ddPBtn').firstChild.nodeValue='All Platforms';
+  document.getElementById('ddPMenu').querySelectorAll('.hdd-item').forEach(function(i){i.classList.toggle('sel',i.getAttribute('data-val')==='all');});
+  buildMonthMenu();
+  switchPlatformTab('meta');
+  document.getElementById('landing').style.display='none';
+  document.getElementById('dashboard').style.display='block';
   renderDashboard();
-}
-
-function setMonth(val,label){
-  curMonth=val;
-  document.getElementById('monthFilterM').value=val;
-  var btn=document.getElementById('ddMBtn');
-  btn.firstChild.nodeValue=label;
-  document.getElementById('ddMMenu').querySelectorAll('.hdd-item').forEach(function(i){i.classList.toggle('sel',i.getAttribute('data-val')===val);});
-  if(isWeekly) populateWeeks();
-  renderDashboard();
+  window.scrollTo(0,0);
 }
 
 function renderDashboard(){
   var campaigns=filteredCampaigns();
   var weekRow=isWeekly?getSelectedWeek():null;
   var fallback=null;
-  if(!isWeekly&&curMonth!=='all'&&WEEKS[curMonth]&&WEEKS[curMonth].length&&!CAMPAIGNS.some(function(d){return d.month===curMonth;})){
+  var cw=getClient().weeks;
+  var cc=getClient().campaigns;
+  if(!isWeekly&&curMonth!=='all'&&cw[curMonth]&&cw[curMonth].length&&!cc.some(function(d){return d.month===curMonth;})){
     fallback={
-      spend:WEEKS[curMonth].reduce(function(s,w){return s+w.spend;},0),
-      impressions:WEEKS[curMonth].reduce(function(s,w){return s+w.impressions;},0),
-      clicks:WEEKS[curMonth].reduce(function(s,w){return s+w.clicks;},0),
-      messages:WEEKS[curMonth].reduce(function(s,w){return s+w.messages;},0)
+      spend:cw[curMonth].reduce(function(s,w){return s+w.spend;},0),
+      impressions:cw[curMonth].reduce(function(s,w){return s+w.impressions;},0),
+      clicks:cw[curMonth].reduce(function(s,w){return s+w.clicks;},0),
+      messages:cw[curMonth].reduce(function(s,w){return s+w.messages;},0)
     };
   }
   renderKPIs(campaigns,weekRow,fallback);
@@ -487,22 +466,25 @@ function renderKPIs(campaigns,weekRow,fallback){
 function renderMeta(data){
   var objs=[];
   for(var i=0;i<data.length;i++){if(data[i].objective&&objs.indexOf(data[i].objective)===-1)objs.push(data[i].objective);}
-  var bmap={SALES:'sales',WHATSAPP:'whatsapp',SIGNUP:'signup'};
   var html='';
   if(!data.length){html='<div class="empty">No META data</div>';}
   else{
     for(var oi=0;oi<objs.length;oi++){
       var obj=objs[oi];
+      var objUp=obj.toUpperCase();
       var rows=data.filter(function(d){return d.objective===obj;});
-      var tot={impressions:0,reach:0,messages:0,clicks:0,spend:0,purchases:0,leads:0,revenue:0};
+      var tot={impressions:0,reach:0,messages:0,clicks:0,spend:0,purchases:0,leads:0,revenue:0,profileVisits:0,follows:0};
       for(var ri=0;ri<rows.length;ri++){var r=rows[ri];for(var k in tot)tot[k]+=r[k]||0;}
-      var badge=bmap[obj.toUpperCase()]||'sales';
-      var iS=obj.toUpperCase()==='SALES';
-      var iW=obj.toUpperCase()==='WHATSAPP';
-      var iSu=obj.toUpperCase()==='SIGNUP';
+      var bmap={'SALES':'sales','WHATSAPP':'whatsapp','SIGNUP':'signup','TRAFFIC':'traffic','PROFILE VISITS':'profile'};
+      var badge=bmap[objUp]||'sales';
+      var iS=objUp==='SALES';
+      var iW=objUp==='WHATSAPP';
+      var iSu=objUp==='SIGNUP';
+      var iPV=objUp==='PROFILE VISITS';
       html+='<div class="obj-sec"><div class="obj-hdr"><span class="badge '+badge+'">'+obj+'</span><span class="obj-count">'+rows.length+' campaign'+(rows.length!==1?'s':'')+'</span></div>';
       html+='<div class="tbl-wrap"><table><thead><tr><th>Campaign</th><th>Date</th><th class="num">Impressions</th><th class="num">Reach</th>';
       if(iW||iSu)html+='<th class="num">Messages</th>';
+      if(iPV)html+='<th class="num">Profile Visits</th><th class="num">Follows</th>';
       html+='<th class="num">Clicks</th><th class="num">CPC</th><th class="num">Spend</th>';
       if(iS)html+='<th class="num">Purchases</th><th class="num">Revenue</th><th class="num">ROAS</th>';
       if(iSu)html+='<th class="num">Leads</th>';
@@ -513,6 +495,7 @@ function renderMeta(data){
         html+='<tr><td>'+sc.name+'</td><td class="date-col">'+sc.date+'</td>';
         html+='<td class="num">'+fmtK(rr.impressions)+'</td><td class="num">'+(rr.reach?fmtK(rr.reach):'\u2014')+'</td>';
         if(iW||iSu)html+='<td class="num">'+(rr.messages||'\u2014')+'</td>';
+        if(iPV)html+='<td class="num">'+(rr.profileVisits||'\u2014')+'</td><td class="num">'+(rr.follows||'\u2014')+'</td>';
         html+='<td class="num">'+(rr.clicks?rr.clicks.toLocaleString():'\u2014')+'</td>';
         html+='<td class="num">'+fmtC(rr.cpc)+'</td><td class="num hi">'+fmtA(rr.spend)+'</td>';
         if(iS)html+='<td class="num">'+(rr.purchases||'\u2014')+'</td><td class="num">'+(rr.revenue?fmtA(rr.revenue):'\u2014')+'</td><td class="num">'+(rr.roas?rr.roas.toFixed(2)+'x':'\u2014')+'</td>';
@@ -521,6 +504,7 @@ function renderMeta(data){
       }
       html+='<tr class="total-row"><td>TOTAL</td><td></td><td class="num">'+fmtK(tot.impressions)+'</td><td class="num">'+fmtK(tot.reach)+'</td>';
       if(iW||iSu)html+='<td class="num">'+tot.messages.toLocaleString()+'</td>';
+      if(iPV)html+='<td class="num">'+tot.profileVisits.toLocaleString()+'</td><td class="num">'+tot.follows.toLocaleString()+'</td>';
       html+='<td class="num">'+tot.clicks.toLocaleString()+'</td>';
       html+='<td class="num">'+(tot.clicks?(tot.spend*USD/tot.clicks).toFixed(2):'\u2014')+'</td>';
       html+='<td class="num">'+fmtA(tot.spend)+'</td>';
@@ -558,65 +542,58 @@ function switchPlatformTab(tab){
 }
 
 window.addEventListener('DOMContentLoaded',function(){
-
-  // Custom dropdown logic
-  function initDD(btnId,menuId,onChange){
-    var btn=document.getElementById(btnId);
-    var menu=document.getElementById(menuId);
-    btn.addEventListener('click',function(e){
+  // Platform dropdown
+  document.getElementById('ddPBtn').addEventListener('click',function(e){
+    e.stopPropagation();
+    var menu=document.getElementById('ddPMenu');
+    var wasOpen=menu.classList.contains('show');
+    document.querySelectorAll('.hdd-menu').forEach(function(m){m.classList.remove('show');});
+    document.querySelectorAll('.hdd-btn').forEach(function(b){b.classList.remove('open');});
+    if(!wasOpen){menu.classList.add('show');this.classList.add('open');}
+  });
+  document.getElementById('ddPMenu').querySelectorAll('.hdd-item').forEach(function(item){
+    item.addEventListener('click',function(e){
       e.stopPropagation();
-      var wasOpen=menu.classList.contains('show');
-      document.querySelectorAll('.hdd-menu').forEach(function(m){m.classList.remove('show');});
-      document.querySelectorAll('.hdd-btn').forEach(function(b){b.classList.remove('open');});
-      if(!wasOpen){menu.classList.add('show');btn.classList.add('open');}
+      curPlatform=this.getAttribute('data-val');
+      document.getElementById('ddPBtn').firstChild.nodeValue=this.textContent;
+      document.getElementById('ddPMenu').querySelectorAll('.hdd-item').forEach(function(i){i.classList.remove('sel');});
+      this.classList.add('sel');
+      document.getElementById('ddPMenu').classList.remove('show');
+      document.getElementById('ddPBtn').classList.remove('open');
+      if(curPlatform==='META') switchPlatformTab('meta');
+      else if(curPlatform==='Google') switchPlatformTab('google');
+      renderDashboard();
     });
-    menu.querySelectorAll('.hdd-item').forEach(function(item){
-      item.addEventListener('click',function(){
-        var val=this.getAttribute('data-val');
-        var label=this.textContent;
-        btn.firstChild.nodeValue=label;
-        menu.querySelectorAll('.hdd-item').forEach(function(i){i.classList.remove('sel');});
-        this.classList.add('sel');
-        menu.classList.remove('show');
-        btn.classList.remove('open');
-        onChange(val,label);
-      });
-    });
-  }
+  });
 
+  // Month dropdown button
+  document.getElementById('ddMBtn').addEventListener('click',function(e){
+    e.stopPropagation();
+    var menu=document.getElementById('ddMMenu');
+    var wasOpen=menu.classList.contains('show');
+    document.querySelectorAll('.hdd-menu').forEach(function(m){m.classList.remove('show');});
+    document.querySelectorAll('.hdd-btn').forEach(function(b){b.classList.remove('open');});
+    if(!wasOpen){menu.classList.add('show');this.classList.add('open');}
+  });
+
+  // Close on outside click
   document.addEventListener('click',function(){
     document.querySelectorAll('.hdd-menu').forEach(function(m){m.classList.remove('show');});
     document.querySelectorAll('.hdd-btn').forEach(function(b){b.classList.remove('open');});
   });
 
-  initDD('ddPBtn','ddPMenu',function(val,label){setPlatform(val,label);});
-  initDD('ddMBtn','ddMMenu',function(val,label){setMonth(val,label);});
+  // Landing cards
+  document.getElementById('cardBB').addEventListener('click',function(){openClient('bebeach');});
+  document.getElementById('cardGI').addEventListener('click',function(){openClient('giulia');});
 
-  // Landing
-  document.getElementById('cardBB').addEventListener('click',function(){
-    document.getElementById('landing').style.display='none';
-    document.getElementById('dashboard').style.display='block';
-    isWeekly=false;
-    document.getElementById('togMonthly').classList.add('on');
-    document.getElementById('togWeekly').classList.remove('on');
-    document.getElementById('weekBar').style.display='none';
-    setLatestMonth();
-    renderDashboard();
-    window.scrollTo(0,0);
-  });
-
+  // Back button
   document.getElementById('backBtn').addEventListener('click',function(){
     document.getElementById('dashboard').style.display='none';
     document.getElementById('landing').style.display='flex';
     window.scrollTo(0,0);
   });
 
-  document.getElementById('backBtnM').addEventListener('click',function(){
-    document.getElementById('dashboard').style.display='none';
-    document.getElementById('landing').style.display='flex';
-    window.scrollTo(0,0);
-  });
-
+  // Toggle
   document.getElementById('togMonthly').addEventListener('click',function(){
     isWeekly=false;
     document.getElementById('togMonthly').classList.add('on');
@@ -624,7 +601,6 @@ window.addEventListener('DOMContentLoaded',function(){
     document.getElementById('weekBar').style.display='none';
     renderDashboard();
   });
-
   document.getElementById('togWeekly').addEventListener('click',function(){
     isWeekly=true;
     document.getElementById('togWeekly').classList.add('on');
@@ -636,15 +612,10 @@ window.addEventListener('DOMContentLoaded',function(){
     renderDashboard();
   });
 
-  document.getElementById('platformFilterM').addEventListener('change',function(){
-    setPlatform(this.value,this.options[this.selectedIndex].text);
-  });
-
-  document.getElementById('monthFilterM').addEventListener('change',function(){
-    setMonth(this.value,this.options[this.selectedIndex].text);
-  });
-
+  // Week filter
   document.getElementById('weekFilter').addEventListener('change',function(){renderDashboard();});
+
+  // Platform tabs
   document.getElementById('tabMeta').addEventListener('click',function(){switchPlatformTab('meta');});
   document.getElementById('tabGoogle').addEventListener('click',function(){switchPlatformTab('google');});
 });
